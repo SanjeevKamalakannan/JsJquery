@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Js and Jquery</title>
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>  
+      <h1 style="text-align: center;"> Quantiphi </h1>
+      <h2 style="text-align: center; margin-top: 10px;"> Javascript and JQuery Exercise </h2>
+      <h2> Paragraph :</h2>
+      <p id="content">`Thank you so much for contacting us. Dreamland guest relations. You're speaking with Ronaldo. May I have your name, please? Yes, sure. My name is robin soleimani. What is your phone number? It is 9876535362 as mentioned in the book Diary. Thank you so much for providing the info!`</p>
+      <h2>Individual sentences : </h2>
+      <p id="sentences"></p>
+      
+      <h2> Dictionary : </h2>
+      <p>qTeams = {aaiec: 400, 
+        aaiwc: 60, 
+        qai: 200, 
+        poc: 100,
+        gtm: 50,
+        hr: 10
+        };</p>
+      <h2>Sorted Dictionary : </h2>
+      <p id="sortedteams"></p>
+      <script>
+        
+        var paracontent = document.getElementById("content").textContent;
+        var strings = paracontent.replace(/[^a-zA-Z0-9.?,'! ]/g, '');
+        var substrings = strings.split(/[.]+?/);
+        var newsubstrings = [];
+        for(var i = 0 ; i < substrings.length ; i++)
+        {
+            var temp = substrings[i].split(/[?]+?/);
+            if(temp.length==2)
+            {
+              temp[0]+='?';
+              newsubstrings.push(temp[0]);
+              newsubstrings.push(temp[1]+'.');
+            }
+            else
+            {
+              newsubstrings.push(substrings[i]+'.');
+            }
+        }
+        
+        const sentences = [];
+        for( var i = 0; i < newsubstrings.length; i++){
+            var word = newsubstrings[i].replace(/[0-9]/g, "X").trim();
+            var words = word.split(" ").length;
+            if ( words>3 ) { 
+              sentences.push(word);
+            }
+        }
+        for( var i = 0; i < sentences.length; i++)
+        {
+          document.getElementById("sentences").innerHTML += i+1 + "." + sentences[i] + "<br>";
+        }
+        
+        var qTeams = {"aaiec": 400, 
+        "aaiwc": 60, 
+        "qai": 200, 
+        "poc": 100,
+        "gtm": 50,
+        "hr": 10
+        };
+        var items = Object.keys(qTeams).map(function(key) {
+          return [key, qTeams[key]];
+        });
+        items.sort(function(first, second) {
+          return second[1] - first[1];
+        });
+        console.log(items);
+        for( var i = 0; i < items.length; i++)
+        {
+          document.getElementById("sortedteams").innerHTML += i+1 + "." + items[i][0] + "<br>";
+        }
+      </script>
+    </body>
+</html>
